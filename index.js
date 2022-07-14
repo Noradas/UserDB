@@ -7,6 +7,7 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 require("dotenv").config();
+//require("dotenv").config((path: "./config.env" )); 
 
 //database credentials hidden in .env
 const DB_HOST = process.env.DB_HOST;
@@ -48,7 +49,7 @@ app.post("/createUser", async(req, res) => {
     const user = req.body.name;
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-    //connecting to db and inserting new user information
+    //verify to db and inserting new user information
     db.getConnection(async(err, connection) => {
         if (err) throw err;
         const sqlSearch = "SELECT * FROM userTable WHERE user = ?";
